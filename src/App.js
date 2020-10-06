@@ -1,25 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
+import logo from './logo.png';
 
-function App() {
+import './App.css';
+import PokemonCrossword from './components/PokemonCrossword/PokemonCrossword';
+
+const App = () => {
+  const [difficulty, setDifficulty] = React.useState(1); 
+  const client = new ApolloClient({
+    uri: 'https://graphql-pokemon2.vercel.app',
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <div className="App">
+        <img src={logo} className="logo" />
+        <div className="">
+          <button onClick={() => setDifficulty(0)} className={difficulty === 0 ? 'selected' : ''}>Easy</button>
+          <button onClick={() => setDifficulty(1)} className={difficulty === 1 ? 'selected' : ''}>Medium</button>
+          <button onClick={() => setDifficulty(2)} className={difficulty === 2 ? 'selected' : ''}>Hard</button>
+        </div>
+        <PokemonCrossword difficulty={difficulty}/>
+        Hello
+      </div>
+    </ApolloProvider>
   );
 }
 
