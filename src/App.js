@@ -14,14 +14,14 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <img src={logo} className="logo" />
-        <div className="">
+        <img src={logo} className="logo" alt="Pokemon Crossword" />
+        <div className="difficulty-selector">
           <button onClick={() => setDifficulty(0)} className={difficulty === 0 ? 'selected' : ''}>Easy</button>
           <button onClick={() => setDifficulty(1)} className={difficulty === 1 ? 'selected' : ''}>Medium</button>
           <button onClick={() => setDifficulty(2)} className={difficulty === 2 ? 'selected' : ''}>Hard</button>
         </div>
         <PokemonCrossword difficulty={difficulty}/>
-        Hello
+        <div className="footer">Made with ❤️ by <a href="https://github.com/acesmndr">acesmndr</a></div>
       </div>
     </ApolloProvider>
   );

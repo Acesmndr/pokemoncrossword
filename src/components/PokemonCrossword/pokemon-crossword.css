@@ -1,7 +1,8 @@
 .crossword-div {
-  width: 80vw;
-  margin: 32px auto;
+  width: min(80vw, 600px);
+  margin: 32px auto 0px;
   text-align: initial;
   padding: 48px;
   box-shadow: 1px 1px 25px inset white;
+  border-radius: 25px;
 }

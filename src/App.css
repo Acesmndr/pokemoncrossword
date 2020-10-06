@@ -46,6 +46,14 @@ button.selected {
   color: white;
 }
 
+.difficulty-selector {
+  margin-top: 16px;
+}
+
+.footer {
+  padding: 16px 16px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

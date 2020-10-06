@@ -6,9 +6,36 @@ import { generateCrossword } from 'crossword-gen';
 import './pokemon-crossword.css';
 import Loading from '../Loading/Loading';
 
-const generateData = (inputPokemonsData = []) => {
-  const inputData = inputPokemonsData.map(pokemon => ({ answer: pokemon.name, clue: pokemon.classification + 'some long string that will make the text overflow and the developer cry' }));
-  const { across, down } = generateCrossword(inputData);
+const pokemonTypeString = (types = []) => {
+  if(types.length > 1) {
+    const typeString = types.join(', ');
+    const lastCommaIndex = typeString.lastIndexOf(',');
+    return `${typeString.substr(0, lastCommaIndex)} and ${typeString.substr(lastCommaIndex + 1)}`;
+  }
+  return types[0];
+}
+
+const generateClueBasedOnDifficulty = (pokemon = {}, difficulty = 0) => {
+  const { classification, types } = pokemon;
+  switch(difficulty) {
+    case 0:
+      return `${pokemonTypeString(types)} type ${classification}`;
+    case 1:
+      return `${pokemonTypeString(types)} type`;
+    case 2:
+    default:
+      return classification;
+  }
+}
+
+const generateData = (inputPokemonsData = [], difficulty) => {
+  const sortedAndTrimmedPokemonData = inputPokemonsData.sort((a, b) => (0.5 - Math.random())).slice(0, (5 + 3 * (difficulty + 1)));
+  const validPokemonFromSortedList = sortedAndTrimmedPokemonData.filter(pokemon => /[a-zA-Z]/.test(pokemon.name));
+  const inputData = validPokemonFromSortedList.map(pokemon => ({
+    answer: pokemon.name,
+    clue: generateClueBasedOnDifficulty(pokemon, difficulty),
+  }));
+  const { across = [], down = [] } = generateCrossword(inputData);
   const acrossData = across.reduce((acc, word, idx) => (
     Object.assign({}, acc, {
       [idx + 1]: word,
@@ -23,14 +50,14 @@ const generateData = (inputPokemonsData = []) => {
   }
 }
 
-const PokemonCrossword = () => {
+const PokemonCrossword = ({ difficulty }) => {
   const { data: { pokemons = [] } = {} } = useQuery(GET_POKEMONS, {
       variables: { first: 151 },
   });
   if(!pokemons.length) {
     return <Loading />;
   }
-  const crosswordData = generateData(pokemons.sort((a, b) => (0.5 - Math.random())).slice(0, 20));
+  const crosswordData = generateData(pokemons, difficulty);
   return (
     <div className="crossword-div">
       <Crossword
@@ -46,6 +73,8 @@ const PokemonCrossword = () => {
           focusBackground: '#25c4de',
           highlightBackground: '#a2ffff',
         }}
+        onCorrect={(direction, number, answer) => console.log(direction, number, answer)}
+        onCrosswordCorrect={(completed) => {console.log('completed', completed)}}
       />
     </div>);
 }
