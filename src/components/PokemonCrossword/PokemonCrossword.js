@@ -21,10 +21,10 @@ const generateClueBasedOnDifficulty = (pokemon = {}, difficulty = 0) => {
     case 0:
       return `${pokemonTypeString(types)} type ${classification}`;
     case 1:
-      return `${pokemonTypeString(types)} type`;
+      return classification;
     case 2:
     default:
-      return classification;
+      return `${pokemonTypeString(types)} type`;
   }
 }
 
@@ -64,14 +64,14 @@ const PokemonCrossword = ({ difficulty }) => {
         data={crosswordData}
         useStorage={false}
         theme={{
-          columnBreakpoint: '400px',
+          columnBreakpoint: '600px',
           gridBackground: 'transparent',
           cellBackground: '#ffe',
           cellBorder: '#fca',
-          textColor: 'rgba(90,83,210,1)',
+          textColor: '#212121',
           numberColor: '#000',
-          focusBackground: '#25c4de',
-          highlightBackground: '#a2ffff',
+          focusBackground: '#4f97dd',
+          highlightBackground: '#89b2db',
         }}
         onCorrect={(direction, number, answer) => console.log(direction, number, answer)}
         onCrosswordCorrect={(completed) => {console.log('completed', completed)}}
