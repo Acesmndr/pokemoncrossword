@@ -32,7 +32,7 @@ const generateClueBasedOnDifficulty = (pokemon = {}, difficulty = 0) => {
 
 const generateData = (inputPokemonsData = [], difficulty) => {
   const sortedAndTrimmedPokemonData = inputPokemonsData.sort((a, b) => (0.5 - Math.random())).slice(0, (7 + 3 * difficulty));
-  const validPokemonFromSortedList = sortedAndTrimmedPokemonData.filter(pokemon => /[a-zA-Z]/.test(pokemon.name));
+  const validPokemonFromSortedList = sortedAndTrimmedPokemonData.filter(pokemon => /^[a-zA-Z]*$/.test(pokemon.name));
   const inputData = validPokemonFromSortedList.map(pokemon => ({
     answer: pokemon.name,
     clue: generateClueBasedOnDifficulty(pokemon, difficulty),
@@ -63,7 +63,6 @@ const PokemonCrossword = ({ difficulty }) => {
     return <Loading />;
   }
   const crosswordData = generateData(pokemons, difficulty);
-  console.log(crosswordData);
   return (
     <div className="crossword-div">
       <Crossword
