@@ -4,7 +4,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pokemoncrossword/index.html"
   },
   {
-    "revision": "14c4acb78ae8eb6ad980",
+    "revision": "6bae2ad187ab7cf00548",
     "url": "/pokemoncrossword/static/css/2.d34346ea.chunk.css"
   },
   {
@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pokemoncrossword/static/css/main.5487743e.chunk.css"
   },
   {
-    "revision": "14c4acb78ae8eb6ad980",
+    "revision": "6bae2ad187ab7cf00548",
     "url": "/pokemoncrossword/static/js/2.a9f13d42.chunk.js"
   },
   {
