@@ -1,6 +1,8 @@
 import React from 'react';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import logo from './logo.png';
 
 import './App.css';
@@ -48,16 +50,17 @@ const App = () => {
   });
   return (
     <ApolloProvider client={client}>
-      <div className="App">
-        <img src={logo} className="logo" alt="Pokemon Crossword" />
-        <div className="difficulty-selector">
-          <button onClick={() => setDifficulty(0)} className={difficulty === 0 ? 'selected' : ''}>Easy</button>
-          <button onClick={() => setDifficulty(1)} className={difficulty === 1 ? 'selected' : ''}>Medium</button>
-          <button onClick={() => setDifficulty(2)} className={difficulty === 2 ? 'selected' : ''}>Hard</button>
+        <ToastContainer autoClose={10000}/>
+        <div className="App">
+          <img src={logo} className="logo" alt="Pokemon Crossword" />
+          <div className="difficulty-selector">
+            <button onClick={() => setDifficulty(0)} className={difficulty === 0 ? 'selected' : ''}>Easy</button>
+            <button onClick={() => setDifficulty(1)} className={difficulty === 1 ? 'selected' : ''}>Medium</button>
+            <button onClick={() => setDifficulty(2)} className={difficulty === 2 ? 'selected' : ''}>Hard</button>
+          </div>
+          <PokemonCrossword difficulty={difficulty}/>
+          <div className="footer">Made with <span role="img" aria-label="love">❤️</span> by <a href="https://github.com/acesmndr">acesmndr</a></div>
         </div>
-        <PokemonCrossword difficulty={difficulty}/>
-        <div className="footer">Made with <span role="img" aria-label="love">❤️</span> by <a href="https://github.com/acesmndr">acesmndr</a></div>
-      </div>
     </ApolloProvider>
   );
 }

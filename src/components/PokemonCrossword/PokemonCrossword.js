@@ -1,10 +1,12 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_POKEMONS } from '../../graphql/pokemons';
 import Crossword from '@jaredreisinger/react-crossword';
 import { generateCrossword } from 'crossword-gen';
 import './pokemon-crossword.css';
 import Loading from '../Loading/Loading';
+import WinnerImage from '../../winner.png';
 
 const pokemonTypeString = (types = []) => {
   if(types.length > 1) {
@@ -29,7 +31,7 @@ const generateClueBasedOnDifficulty = (pokemon = {}, difficulty = 0) => {
 }
 
 const generateData = (inputPokemonsData = [], difficulty) => {
-  const sortedAndTrimmedPokemonData = inputPokemonsData.sort((a, b) => (0.5 - Math.random())).slice(0, (5 + 3 * (difficulty + 1)));
+  const sortedAndTrimmedPokemonData = inputPokemonsData.sort((a, b) => (0.5 - Math.random())).slice(0, (7 + 3 * difficulty));
   const validPokemonFromSortedList = sortedAndTrimmedPokemonData.filter(pokemon => /[a-zA-Z]/.test(pokemon.name));
   const inputData = validPokemonFromSortedList.map(pokemon => ({
     answer: pokemon.name,
@@ -51,6 +53,9 @@ const generateData = (inputPokemonsData = [], difficulty) => {
 }
 
 const PokemonCrossword = ({ difficulty }) => {
+  React.useEffect(() => {
+    
+  }, []);
   const { data: { pokemons = [] } = {} } = useQuery(GET_POKEMONS, {
       variables: { first: 151 },
   });
@@ -58,6 +63,7 @@ const PokemonCrossword = ({ difficulty }) => {
     return <Loading />;
   }
   const crosswordData = generateData(pokemons, difficulty);
+  console.log(crosswordData);
   return (
     <div className="crossword-div">
       <Crossword
@@ -67,14 +73,31 @@ const PokemonCrossword = ({ difficulty }) => {
           columnBreakpoint: '600px',
           gridBackground: 'transparent',
           cellBackground: '#ffe',
-          cellBorder: '#fca',
+          cellBorder: '#4d8be5',
           textColor: '#212121',
           numberColor: '#000',
           focusBackground: '#4f97dd',
           highlightBackground: '#89b2db',
         }}
-        onCorrect={(direction, number, answer) => console.log(direction, number, answer)}
-        onCrosswordCorrect={(completed) => {console.log('completed', completed)}}
+        onCorrect={(direction, number, answer) => {
+          const rightPokemon = pokemons.find(pokemon => pokemon.name.toUpperCase() === answer);
+          toast(({ closeToast }) => (
+            <div className="toast-grid">
+              <img src={rightPokemon.image} width="100" />
+              <div className="toast-text">You guessed it right!<br/>It's <strong>{rightPokemon.name}</strong></div>
+            </div>
+          ));
+        }}
+        onCrosswordCorrect={(completed) => {
+          if(completed) {
+            toast(({ closeToast }) => (
+              <div className="winning-notification">
+                <img src={WinnerImage} width="200px" />
+                <div className="toast-text">Congrats! You solved it!</div>
+              </div>
+            ));
+          }
+        }}
       />
     </div>);
 }

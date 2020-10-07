@@ -31,3 +31,17 @@
 .grid {
   background: #26262624;
 }
+
+.toast-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.toast-text {
+  margin: auto;
+}
+
+.winning-notification .toast-text {
+  padding: 16px;
+}
+
