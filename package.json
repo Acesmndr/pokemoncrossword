@@ -2,6 +2,7 @@
   "name": "pokemoncrossword",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://acesmndr.github.io/pokemoncrossword",
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
     "@jaredreisinger/react-crossword": "^2.3.1",
@@ -14,6 +15,7 @@
     "graphql-tag": "^2.11.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-ga": "^3.1.2",
     "react-scripts": "3.4.3",
     "react-toastify": "^6.0.9"
   },
