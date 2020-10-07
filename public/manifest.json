@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Pokemon Crossword",
+  "name": "Crossword game with pokemon names",
   "icons": [
     {
       "src": "favicon.png",
