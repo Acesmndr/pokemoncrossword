@@ -82,7 +82,7 @@ const PokemonCrossword = ({ difficulty }) => {
           const rightPokemon = pokemons.find(pokemon => pokemon.name.toUpperCase() === answer);
           toast(({ closeToast }) => (
             <div className="toast-grid">
-              <img src={rightPokemon.image} width="100" />
+              <img alt={rightPokemon.name} src={rightPokemon.image} width="100px" />
               <div className="toast-text">You guessed it right!<br/>It's <strong>{rightPokemon.name}</strong></div>
             </div>
           ));
@@ -91,7 +91,7 @@ const PokemonCrossword = ({ difficulty }) => {
           if(completed) {
             toast(({ closeToast }) => (
               <div className="winning-notification">
-                <img src={WinnerImage} width="200px" />
+                <img alt="Trophy" src={WinnerImage} width="200px" />
                 <div className="toast-text">Congrats! You solved it!</div>
               </div>
             ));

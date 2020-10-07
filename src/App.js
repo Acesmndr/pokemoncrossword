@@ -4,6 +4,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from './logo.png';
+import ReactGA from 'react-ga';
 
 import './App.css';
 import PokemonCrossword from './components/PokemonCrossword/PokemonCrossword';
@@ -44,6 +45,8 @@ const useLocalStorage = (key, initialValue) => {
 }
 
 const App = () => {
+  ReactGA.initialize('UA-119896576-3');
+  ReactGA.pageview(window.location.pathname + window.location.search);
   const [difficulty, setDifficulty] = useLocalStorage('difficulty', 0);
   const client = new ApolloClient({
     uri: 'https://graphql-pokemon2.vercel.app',

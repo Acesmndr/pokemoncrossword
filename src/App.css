@@ -36,3 +36,12 @@ button.selected {
 .Toastify__toast--default {
   border-radius: 10px;
 }
+
+.footer {
+  color: white;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.footer a {
+  color: white;
+}
